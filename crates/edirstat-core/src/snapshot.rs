@@ -897,6 +897,7 @@ pub fn save_snapshot_ext_txt_or_csv(
     string_pool: &StringPool,
     path: &Path,
     csv: bool,
+    ranft: bool,
 ) -> Result<(), crate::EdirstatError> {
 
     let txt_path = path;
@@ -956,6 +957,12 @@ pub fn save_snapshot_ext_txt_or_csv(
             readable_time_str,
             modified_str,
             flags_str)?;
+        } else if ranft {
+            if nodetype == "FILE" {
+                writeln!(txt_writer,"{}",full_path)?;
+                writeln!(txt_writer,"{}",size_str)?;            
+                writeln!(txt_writer,"{}",modified_str)?;
+            }
         } else {
             writeln!(txt_writer,"{}",nodetype)?;
             writeln!(txt_writer,"{}",full_path)?;

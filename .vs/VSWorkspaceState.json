@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\crates",
+    "\\crates\\edirstat",
+    "\\crates\\edirstat-core",
+    "\\crates\\edirstat-core\\src",
+    "\\crates\\edirstat\\src"
+  ],
+  "SelectedNode": "\\crates\\edirstat\\src\\app.rs",
+  "PreviewInSolutionExplorer": false
+}

@@ -137,7 +137,7 @@ fn run_headless_scan_and_save(
     //    to_path = to_path.with_added_extension(ext);
     //}
     let ext: String;
-    if is_csv_file(&to_path) || is_txt_file(&to_path) {
+    if is_csv_file(&to_path) || is_txt_file(&to_path) || is_ranft_file(&to_path) {
         ext = to_path
             .extension()
             .and_then(|s| s.to_str())
@@ -206,6 +206,7 @@ fn run_headless_scan_and_save(
             &snapshot.string_pool,
             &dest_path,
             true,
+            false,
         )?;
     } else if is_txt_file(&to_path) {
         crate::snapshot::save_snapshot_ext_txt_or_csv(
@@ -213,6 +214,15 @@ fn run_headless_scan_and_save(
             &snapshot.string_pool,
             &dest_path,
             false,
+            false,
+        )?;
+    } else if is_ranft_file(&to_path) {
+        crate::snapshot::save_snapshot_ext_txt_or_csv(
+            &snapshot.nodes,
+            &snapshot.string_pool,
+            &dest_path,
+            false,
+            true,
         )?;
     } else {
         crate::snapshot::save_snapshot_ext(
@@ -347,4 +357,10 @@ fn is_txt_file(path: &Path) -> bool {
     path.extension()
         .and_then(|ext| ext.to_str())
         .is_some_and(|ext| ext.eq_ignore_ascii_case("txt"))
+}
+
+fn is_ranft_file(path: &Path) -> bool {
+    path.extension()
+        .and_then(|ext| ext.to_str())
+        .is_some_and(|ext| ext.eq_ignore_ascii_case("ranft"))
 }
